@@ -47,11 +47,13 @@
     <div class="register">
         <div class="am-g am-container am-margin-vertical-lg">
             <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-                <form action="action" method="POST" role="form" class="am-form">
+                <form action="{:U('Home/register/register')}" method="POST" role="form" class="am-form">
                     <legend>用户注册</legend>
                     <div class="am-form-group">
                         <label for="">登陆邮箱：</label><span class="am-text-warning">{$emailWarning}</span>
                         <input type="text" id="" placeholder="请输入您的邮箱" name="email">
+                        <label for="">用户昵称：</label><span class="am-text-warning">{$nameWarning}</span>
+                        <input type="text" id="" placeholder="请输入您的昵称" name="name">
                         <label for="">登陆密码：</label><span class="am-text-warning">{$passwordWarning}</span>
                         <input type="password" id="" placeholder="请输入您的密码" name="password">
                         <label for="">确认密码：</label><span class="am-text-warning">{$password2Warning}</span>

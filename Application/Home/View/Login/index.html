@@ -47,15 +47,15 @@
     <div class="register">
         <div class="am-g am-container am-margin-vertical-lg">
             <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-                <form action="action" method="POST" role="form" class="am-form">
+                <form action="{:U('Home/login/login')}" method="POST" role="form" class="am-form">
                     <legend>用户登陆</legend>
                     <div class="am-form-group">
-                        <label for="">登陆邮箱：</label>
+                        <label for="">登陆邮箱：</label><span class="am-text-warning">{$emailWarning}</span>
                         <input type="text" id="" placeholder="请输入您的邮箱" name="email">
-                        <label for="">登陆密码：</label>
+                        <label for="">登陆密码：</label><span class="am-text-warning">{$nameWarning}</span>
                         <input type="password" id="" placeholder="请输入您的密码" name="password">
                     </div>
-                    <button type="submit" class="am-btn am-btn-primary">登陆</button>
+                    <button type="submit" class="am-btn am-btn-primary">登陆</button><span class="am-text-warning">{$warning}</span>
                 </form>
             </div>
             <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
