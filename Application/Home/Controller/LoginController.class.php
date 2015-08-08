@@ -27,8 +27,8 @@ class LoginController extends Controller {
 			}
 	        else
 	        {
-	            setcookie('UserID',$userData['id']);
-	            setcookie('Key',$userData['password']);
+	            setcookie('UserID',$userData['id'], time() + 3600*24,$path='/');
+	            setcookie('Key',$userData['password'], time() + 3600*24,$path='/');
 	            $this->success('登陆成功!', U("Index/index"));
 	        }
         }
