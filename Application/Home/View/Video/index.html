@@ -45,7 +45,20 @@
             </div>
         </div>
     </header>
-    <div class="am-container am-margin-vertical-xl">
+    <div class="am-g am-container video">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div id="youkuplayer" style="width:100%;height:400px"></div>
+            <script type="text/javascript" src="http://player.youku.com/jsapi">
+            player = new YKU.Player('youkuplayer', {
+                styleid: '0',
+                client_id: 'test',
+                vid: '{$vid}',
+                show_related: false
+            });
+            </script>
+        </div>
+    </div>
+    <div class="am-container">
         <div class="am-g">
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                 <div class="js-masonry" data-masonry-options='{ "itemSelector": ".item", "columnWidth": 10 }'>
@@ -81,7 +94,6 @@
     <script src="http://cdn.staticfile.org/jquery/2.1.0/jquery.js"></script>
     <!--<![endif]-->
     <script src="http://cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
-    <script src="http://cdn.staticfile.org/masonry/3.1.5/masonry.pkgd.min.js"></script>
 </body>
 
 </html>
