@@ -34,36 +34,45 @@
                     <li><a href="{:U('Home/Index/index')}">网站首页</a></li>
                     <li><a href="{:U('Home/Projects/index')}">视频项目</a></li>
                     <li><a href="{:U('Home/About/index')}">关于我们</a></li>
-                    <li><a href="{:U('Home/User/index')}">用户中心</a></li>
+                    <li class="am-active"><a href="{:U('Home/User/index')}">用户中心</a></li>
                 </ul>
                 <div class="am-topbar-right">
-                    <button onclick="window.location.href='{:U('Home/Register/index')}';" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span> 注册</button>
+                    <button onclick="window.location.href='{$button2url}';" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span> {$button2title}</button>
                 </div>
                 <div class="am-topbar-right">
-                    <button onclick="window.location.href='{:U('Home/Login/index')}';" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> 登录</button>
+                    <button onclick="window.location.href='{$button1url}';" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> {$button1title}</button>
                 </div>
             </div>
         </div>
     </header>
-    <div class="register">
-        <div class="am-g am-container am-margin-vertical-lg">
-            <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-                <form action="{:U('Home/login/login')}" method="POST" role="form" class="am-form">
-                    <legend>用户登陆</legend>
-                    <div class="am-form-group">
-                        <label for="">登陆邮箱：</label><span class="am-text-warning">{$emailWarning}</span>
-                        <input type="text" id="" placeholder="请输入您的邮箱" name="email">
-                        <label for="">登陆密码：</label><span class="am-text-warning">{$nameWarning}</span>
-                        <input type="password" id="" placeholder="请输入您的密码" name="password">
-                    </div>
-                    <button type="submit" class="am-btn am-btn-primary">登陆</button><span class="am-text-warning">{$warning}</span>
+    <div class="am-container am-margin-vertical-xl">
+        <ul class="am-nav am-nav-pills am-nav-tabs">
+            <li class="am-active"><a href="{:U('Home/User/index')}">开始使用</a></li>
+            <li><a href="{:U('Home/User/upload')}">上传项目</a></li>
+            <li><a href="{:U('Home/User/video')}">我的项目</a></li>
+            <!--<li><a href="{:U('Home/User/info')}">资料管理</a></li>-->
+        </ul>
+    </div>
+    <div class="am-container am-margin-vertical-xl">
+        <div class="am-g">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="am-alert am-alert-success" data-am-alert>
+                  <button type="button" class="am-close">&times;</button>
+                  <p>视频上传完成!</p>
+                </div>
+                <form action="{:U("Home/User/videoComplete")}" method="POST" role="form" class="am-form">
+                  <legend>请完善视频描述</legend>
+                
+                  <div class="am-form-group">
+                    <label for="">视频名称</label>
+                    <input type="text" id="" name="title" placeholder="请输入该视频的名称" value="{$vtitle}">
+                    <label for="">视频描述</label>
+                    <textarea id="" name="description" rows="5" placeholder="请输入该视频的描述"></textarea>
+                    <input type="hidden" id="" name="vid" value="{$vid}">
+                  </div>
+                
+                  <button type="submit" class="am-btn am-btn-primary">保存</button>
                 </form>
-            </div>
-            <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-                <img src="__PUBLIC__/i/examples/landing.png" alt="" data-am-scrollspy="{animation:'slide-right', repeat: false}" class="am-center">
-                <hr class="am-article-divider am-show-sm-only hope-hr">
-                <p>登陆以后，您可以上传你自己的项目，或者给别人的项目提供后期处理后的视频啦！</p>
-
             </div>
         </div>
     </div>

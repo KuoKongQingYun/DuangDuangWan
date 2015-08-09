@@ -7,18 +7,17 @@ class RegisterController extends Controller {
     }
     public function register(){
     	$userModel = M("User");
-
-        if(is_null(I('name')))
+        if(trim(I('name'))=='')
         {
-            $this->assign('nameWarning','请输入用户名!');
+            $this->assign('nameWarning','请输入昵称!');
             $this->display('index');
         }
-        else if(is_null(I('password')))
+        else if(trim(I('password'))=='')
         {
             $this->assign('passwordWarning','请输入密码!');
             $this->display('index');
         }
-        else if(is_null(I('password2')))
+        else if(trim(I('password2'))=='')
         {
             $this->assign('password2Warning','请输入确认密码!');
             $this->display('index');
@@ -37,7 +36,7 @@ class RegisterController extends Controller {
         {
             $userData['name']=I('name');
             $userData['email']=I('email');
-            $userData['password']=md5(md5('Duang')+md5(I('password'))+md5('Duang'));
+            $userData['password']=md5(md5('Duang').md5(I('password')).md5('Duang'));
             $userId=$userModel->data($userData)->add();
             setcookie('UserID',$userId, time()+3600*24,'/');
             setcookie('Key',$userData['password'], time()+3600*24,'/');

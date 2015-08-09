@@ -34,12 +34,13 @@
                     <li><a href="{:U('Home/Index/index')}">网站首页</a></li>
                     <li class="am-active"><a href="{:U('Home/Projects/index')}">视频项目</a></li>
                     <li><a href="{:U('Home/About/index')}">关于我们</a></li>
+                    <li><a href="{:U('Home/User/index')}">用户中心</a></li>
                 </ul>
                 <div class="am-topbar-right">
-                    <button onclick="window.location.href='{:U('Home/Register/index')}';" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span> 注册</button>
+                    <button onclick="window.location.href='{$button2url}';" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span> {$button2title}</button>
                 </div>
                 <div class="am-topbar-right">
-                    <button onclick="window.location.href='{:U('Home/Login/index')}';" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> 登录</button>
+                    <button onclick="window.location.href='{$button1url}';" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> {$button1title}</button>
                 </div>
             </div>
         </div>

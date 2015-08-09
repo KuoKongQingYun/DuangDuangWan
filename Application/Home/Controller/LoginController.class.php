@@ -7,19 +7,19 @@ class LoginController extends Controller {
     }
     public function login(){
         $userModel = M("User");
-		if(is_null(I('email')))
+		if(trim(I('email'))=='')
         {
             $this->assign('emailWarning','请输入邮箱!');
             $this->display('index');
         }
-        else if(is_null(I('password')))
+        else if(trim(I('password'))=='')
         {
             $this->assign('passwordWarning','请输入密码!');
             $this->display('index');
         }
         else
         {
-        	$userData=$userModel->where(array('email' =>I('email'),'password'=>md5(md5('Duang')+md5(I('password'))+md5('Duang'))))->find();
+        	$userData=$userModel->where(array('email' =>I('email'),'password'=>md5(md5('Duang').md5(I('password')).md5('Duang'))))->find();
 			if(is_null($userData))
 			{
 				$this->assign('warning','用户名或密码不正确!');

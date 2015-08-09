@@ -37,10 +37,10 @@
                     <li class="am-active"><a href="{:U('Home/User/index')}">用户中心</a></li>
                 </ul>
                 <div class="am-topbar-right">
-                    <button onclick="window.location.href='{:U('Home/Register/index')}';" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span> 注册</button>
+                    <button onclick="window.location.href='{$button2url}';" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span> {$button2title}</button>
                 </div>
                 <div class="am-topbar-right">
-                    <button onclick="window.location.href='{:U('Home/Login/index')}';" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> 登录</button>
+                    <button onclick="window.location.href='{$button1url}';" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> {$button1title}</button>
                 </div>
             </div>
         </div>
@@ -50,14 +50,18 @@
             <li class="am-active"><a href="{:U('Home/User/index')}">开始使用</a></li>
             <li><a href="{:U('Home/User/upload')}">上传项目</a></li>
             <li><a href="{:U('Home/User/video')}">我的项目</a></li>
-            <li><a href="{:U('Home/User/info')}">资料管理</a></li>
+            <!--<li><a href="{:U('Home/User/info')}">资料管理</a></li>-->
         </ul>
     </div>
     <div class="am-container">
         <div class="am-g">
             <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <h5>想投稿?</h5>
+                <p>1.第一步,点击上面的"视频项目",找到我们发布的比赛项目;</p>
+                <p>2.第二步,在比赛项目里上传你自己作品.</p>
+                <h5>当影星?</h5>
                 <p>1.第一步,上传你的第一个视频项目;</p>
-                <p>2.第二步,等待他人的投稿;</p>
+                <p>2.第二步,等待团队投稿;</p>
             </div>
         </div>
     </div>
