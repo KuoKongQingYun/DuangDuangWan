@@ -62,35 +62,13 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="am-panel am-panel-default">
                 <div class="am-panel-bd">
-                    <span>想上传自己后期处理过后的视频?点击右方"上传视频"按钮!</span>
-                    <button onclick="post('{:U('Home/Video/upload')}',{pid: {$pid}});" type="button" class="am-btn am-btn-primary am-fr">上传视频</button>
+                    <span>如果你喜欢这个投稿,请点击右方"赞"!</span>
+                    <button onclick="post('{:U('Home/Video/upload')}',{pid: {$pid}});" type="button" class="am-btn am-btn-primary am-fr">赞</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="am-g am-container">
-        <h2>投稿视频:</h2>
-        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-            <div class="js-masonry" data-masonry-options='{ "itemSelector": ".item", "columnWidth": 10 }'>
-                <foreach name="videoList" item="vo">
-                    <div class="item" style="width:25%;">
-                        <a href="{$vo.url}">
-                            <section class="am-panel am-panel-default">
-                                <header class="am-panel-hd">
-                                    <h3 class="am-panel-title">{$vo.title}</h3>
-                                </header>
-                                <div class="am-panel-bd">
-                                    <p>{$vo.description}</p>
-                                    <img alt="" src="{$vo.img}" width="100%" />
-                                </div>
-                                <footer class="am-panel-footer"><i class="am-icon-heart am-text-danger"></i><span style="margin:0 0.5em">{$vo.likes}</span></footer>
-                            </section>
-                        </a>
-                    </div>
-                </foreach>
-            </div>
-        </div>
-    </div>
+    
     <footer class="footer">
         <p>© 2015 <a href="http://www.duangduangwan.cn" target="_blank">DuangDuang玩</a> by the KKQY</p>
     </footer>
