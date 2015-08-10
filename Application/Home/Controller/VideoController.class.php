@@ -14,6 +14,8 @@ class VideoController extends Controller {
     	{
             $this->assign('vid',$videoData['vid']);
             $this->assign('pid',$videoData['id']);
+            $this->assign('title',$videoData['title']);
+            $this->assign('description',$videoData['description']);
 
             $videoData=$videoModel->where(array(pid=>I('get.id')))->select();
             foreach ($videoData as &$value) {
@@ -62,7 +64,7 @@ class VideoController extends Controller {
         else
         {
             $videoData=$videoModel->where(array(id=>I('post.pid')))->find();
-            $this->assign('vid',$videoData['vid']);
+            $this->assign('ptitle',$videoData['title']);
             $this->assign('pid',I('post.pid'));
 
             $ch=curl_init();
@@ -116,6 +118,8 @@ class VideoController extends Controller {
         {
             $this->assign('vid',$videoData['vid']);
             $this->assign('pid',$videoData['id']);
+            $this->assign('title',$videoData['title']);
+            $this->assign('description',$videoData['description']);
 
             $userLogin['id']=I('cookie.UserID');
             $userLogin['password']=I('cookie.Key');
