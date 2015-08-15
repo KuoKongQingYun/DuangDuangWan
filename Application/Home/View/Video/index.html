@@ -62,7 +62,7 @@
             player = new YKU.Player('youkuplayer', {
                 styleid: '0',
                 client_id: 'test',
-                vid: '{$vid}',
+                vid: '{$yid}',
                 show_related: false
             });
             </script>
@@ -83,7 +83,7 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="js-masonry" data-masonry-options='{ "itemSelector": ".item", "columnWidth": 10 }'>
                 <foreach name="videoList" item="vo">
-                    <div class="item" style="width:25%;">
+                    <div class="item" style="width:24%;">
                         <a href="{$vo.url}">
                             <section class="am-panel am-panel-default">
                                 <header class="am-panel-hd">
@@ -93,7 +93,11 @@
                                     <p>{$vo.description}</p>
                                     <img alt="" src="{$vo.img}" width="100%" />
                                 </div>
-                                <footer class="am-panel-footer"><i class="am-icon-heart am-text-danger"></i><span style="margin:0 0.5em">{$vo.likes}</span></footer>
+                                <footer class="am-panel-footer">
+                                    <div class="am-fl">上传者:{$vo.authorName}</div>
+                                    <div class="am-fr"><i class="am-icon-heart am-text-danger"></i><span style="margin:0 0.5em">{$vo.likes}</span></div>
+                                    <div class="am-cf"></div>
+                                </footer>
                             </section>
                         </a>
                     </div>
@@ -113,6 +117,7 @@
     <script src="http://cdn.staticfile.org/jquery/2.1.0/jquery.js"></script>
     <!--<![endif]-->
     <script src="http://cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
+    <script src="http://cdn.staticfile.org/masonry/3.1.5/masonry.pkgd.min.js"></script>
     <script type="text/javascript">
     function post(URL, PARAMS) {
         var temp = document.createElement("form");

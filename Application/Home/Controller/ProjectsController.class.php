@@ -5,21 +5,25 @@ class ProjectsController extends Controller {
     public function index(){
         $videoModel=M('Video');
         $userModel=M('User');
-        $videoData=$videoModel->where(array('pid' =>0,'type'=>0))->select();
-        foreach ($videoData as &$value) {
-            $value['url']=U('Home/Video/index',array('id'=>$value['id']));
-            $ch=curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://openapi.youku.com/v2/videos/show.json?client_id=78cb1297cad3da80&video_id=".$value['vid']);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            $data=curl_exec($ch);
-            $jsonData=json_decode($data);
-            $value['img']=$jsonData->{'bigThumbnail'};
-        }
-        $this->assign('videoList',$videoData);
         $userLogin['id']=I('cookie.UserID');
         $userLogin['password']=I('cookie.Key');
         $userData=$userModel->where($userLogin)->find();
+        if(is_null($userData))
+        {
+            $videoType=0;
+        }
+        else
+        {
+            $videoType=$userData['type']=='0'?0:1;
+        }
+
+        $videoData=$videoModel->where(array('pid' =>0,'type'=>$videoType))->select();
+        foreach ($videoData as &$value) {
+            $value['url']=U('Home/Video/index',array('id'=>$value['id']));
+            $temp=$userModel->where(array(id=>$value['uid']))->find();
+            $value['authorName']=$temp['name'];
+        }
+        $this->assign('videoList',$videoData);
         if(is_null($userData))
         {
             $this->assign('button1title','登陆');

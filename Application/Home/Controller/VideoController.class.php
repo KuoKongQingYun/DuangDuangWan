@@ -12,7 +12,7 @@ class VideoController extends Controller {
     	}
     	else
     	{
-            $this->assign('vid',$videoData['vid']);
+            $this->assign('yid',$videoData['yid']);
             $this->assign('pid',$videoData['id']);
             $this->assign('title',$videoData['title']);
             $this->assign('description',$videoData['description']);
@@ -20,13 +20,8 @@ class VideoController extends Controller {
             $videoData=$videoModel->where(array(pid=>I('get.id')))->select();
             foreach ($videoData as &$value) {
                 $value['url']=U('Home/Video/sub',array('id'=>$value['id']));
-                $ch=curl_init();
-                curl_setopt($ch, CURLOPT_URL, "https://openapi.youku.com/v2/videos/show.json?client_id=78cb1297cad3da80&video_id=".$value['vid']);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $data=curl_exec($ch);
-                $jsonData=json_decode($data);
-                $value['img']=$jsonData->{'bigThumbnail'};
+                $temp=$userModel->where(array(id=>$value['uid']))->find();
+                $value['authorName']=$temp['name'];
             }
             $this->assign('videoList',$videoData);
 
@@ -100,8 +95,20 @@ class VideoController extends Controller {
         {
             $videoData['uid']=I('cookie.UserID');
             $videoData['title']=I('post.vtitle');
-            $videoData['vid']=I('post.vid');
+            $videoData['yid']=I('post.yid');
             $videoData['pid']=I('post.pid');
+            do{
+                sleep(5);
+                $ch=curl_init();
+                curl_setopt($ch, CURLOPT_URL, "https://openapi.youku.com/v2/videos/show.json?client_id=78cb1297cad3da80&video_id=".I('post.yid'));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                $data=curl_exec($ch);
+                $jsonData=json_decode($data);
+                $videoData['img']=$jsonData->{'bigThumbnail'};
+                var_dump($videoData['img']);
+            }
+            while ($videoData['img']==NULL);
             $videoModel->data($videoData)->add();
             $this->redirect('Home/Video/index',array(id=>I('post.pid')));
         }
@@ -116,7 +123,7 @@ class VideoController extends Controller {
         }
         else
         {
-            $this->assign('vid',$videoData['vid']);
+            $this->assign('yid',$videoData['yid']);
             $this->assign('pid',$videoData['id']);
             $this->assign('title',$videoData['title']);
             $this->assign('description',$videoData['description']);
@@ -140,6 +147,20 @@ class VideoController extends Controller {
                 $this->assign('button2url',U("Home/Login/logout"));
                 $this->display();
             }
+        }
+    }
+    public function like(){
+        $userModel=M('User');
+        $userLogin['id']=I('cookie.UserID');
+        $userLogin['password']=I('cookie.Key');
+        $userData=$userModel->where($userLogin)->find();
+        if(is_null($userData))
+        {
+            $this->redirect('Home/Login/index');
+        }
+        else
+        {
+
         }
     }
 }

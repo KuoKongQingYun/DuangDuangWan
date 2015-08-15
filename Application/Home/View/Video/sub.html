@@ -62,7 +62,7 @@
             player = new YKU.Player('youkuplayer', {
                 styleid: '0',
                 client_id: 'test',
-                vid: '{$vid}',
+                vid: '{$yid}',
                 show_related: false
             });
             </script>
@@ -73,7 +73,7 @@
             <div class="am-panel am-panel-default">
                 <div class="am-panel-bd">
                     <span>如果你喜欢这个投稿,请点击右方"赞"!</span>
-                    <button onclick="post('{:U('Home/Video/upload')}',{pid: {$pid}});" type="button" class="am-btn am-btn-primary am-fr">赞</button>
+                    <button onclick="$.post('{:U('Home/Video/like')}',{pid: {$pid}});$this.text='已赞'" type="button" class="am-btn am-btn-primary am-fr">赞</button>
                 </div>
             </div>
         </div>

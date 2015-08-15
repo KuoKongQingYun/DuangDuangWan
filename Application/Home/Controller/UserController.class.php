@@ -41,8 +41,6 @@ class UserController extends Controller {
 	    	$data=curl_exec($ch);
 	    	preg_match('/access_token=(.*?)&/',$data,$matches);
 	    	$this->assign('access_token',$matches[1]);
-	        $this->assign('vtitle',I('post.vtitle'));
-    		$this->assign('vid',I('post.vid'));
         	$this->assign('button1title',$userData['name']);
             $this->assign('button1url',U("Home/User/index"));
             $this->assign('button2title','退出登陆');
@@ -62,7 +60,7 @@ class UserController extends Controller {
     	else
     	{
     		$this->assign('vtitle',I('post.vtitle'));
-    		$this->assign('vid',I('post.vid'));
+    		$this->assign('yid',I('post.yid'));
         	$this->assign('button1title',$userData['name']);
             $this->assign('button1url',U("Home/User/index"));
             $this->assign('button2title','退出登陆');
@@ -86,12 +84,24 @@ class UserController extends Controller {
     		$videoData['uid']=I('cookie.UserID');
     		$videoData['title']=I('post.title');
     		$videoData['description']=I('post.description');
-    		$videoData['vid']=I('post.vid');
+    		$videoData['yid']=I('post.yid');
+            if($userData['type']==0)
+            {
+                $videoData['type']=1;
+            }
+            else
+            {
+                $videoData['type']=0;
+            }
+            $ch=curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://openapi.youku.com/v2/videos/show.json?client_id=78cb1297cad3da80&video_id=".I('post.yid'));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            $data=curl_exec($ch);
+            $jsonData=json_decode($data);
+            $videoData['img']=$jsonData->{'bigThumbnail'};
     		$videoModel->data($videoData)->add();
-    		$this->assign('button1title',$userData['name']);
-            $this->assign('button1url',U("Home/User/index"));
-            $this->assign('button2title','退出登陆');
-            $this->assign('button2url',U("Home/Login/logout"));
+
             $this->redirect('Home/User/video');
     	}
     }
@@ -107,16 +117,9 @@ class UserController extends Controller {
     	else
     	{
     		$videoModel=M('Video');
-    		$videoData=$videoModel->where( array('uid' =>I('cookie.UserID')))->select();
+    		$videoData=$videoModel->where( array('uid' =>I('cookie.UserID'),'pid'=>'0'))->select();
     		foreach ($videoData as &$value) {
     			$value['url']=U('Home/Video/index',array('id'=>$value['id']));
-    			$ch=curl_init();
-		    	curl_setopt($ch, CURLOPT_URL, "https://openapi.youku.com/v2/videos/show.json?client_id=78cb1297cad3da80&video_id=".$value['vid']);
-		    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		    	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		    	$data=curl_exec($ch);
-		    	$jsonData=json_decode($data);
-		    	$value['img']=$jsonData->{'bigThumbnail'};
     		}
     		$this->assign('videoList',$videoData);
     		$this->assign('button1title',$userData['name']);
@@ -125,5 +128,29 @@ class UserController extends Controller {
             $this->assign('button2url',U("Home/Login/logout"));
             $this->display();
     	}
+    }
+    public function contribution(){
+        $userModel=M('User');
+        $userLogin['id']=I('cookie.UserID');
+        $userLogin['password']=I('cookie.Key');
+        $userData=$userModel->where($userLogin)->find();
+        if(is_null($userData))
+        {
+            $this->redirect('Home/Login/index');
+        }
+        else
+        {
+            $videoModel=M('Video');
+            $videoData=$videoModel->where(array('uid' =>I('cookie.UserID')))->where(array('pid' =>array('NEQ',0)))->select();
+            foreach ($videoData as &$value) {
+                $value['url']=U('Home/Video/sub',array('id'=>$value['id']));
+            }
+            $this->assign('videoList',$videoData);
+            $this->assign('button1title',$userData['name']);
+            $this->assign('button1url',U("Home/User/index"));
+            $this->assign('button2title','退出登陆');
+            $this->assign('button2url',U("Home/Login/logout"));
+            $this->display();
+        }
     }
 }

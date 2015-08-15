@@ -196,7 +196,7 @@
 
     function uploadComplete(data) {
         post('{:U("Home/Video/uploadComplete")}', {
-            vid: data.videoid,
+            yid: data.videoid,
             vtitle: data.title,
             pid: {$pid}
         });
